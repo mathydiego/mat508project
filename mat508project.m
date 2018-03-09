@@ -55,7 +55,7 @@ end
 plot(1:N, dets, 'b',1:N, Dets,'r');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% expskew5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [MyExponential, MatlabExponential, rel_error] = expskew5(r,k)
+function [MyExponential, MatlabExponential, rel_error, S] = expskew5(r,k)
 % r is a 1x10 vector, the terms correspond to the entries above the
 % diagonal of the skew-symmetric matrix S.
 format long
