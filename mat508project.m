@@ -80,3 +80,28 @@ c4 = (t2^2*(1-cos(k*t1))-t1^2*(1-cos(k*t2)))/(t1^2*t2^2*(t2^2-t1^2));
 MyExponential = eye(5) + c1*S + c2*S^2 + c3*S^3 + c4*S^4;
 E = MyExponential-MatlabExponential;
 rel_error = norm(E);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%presentation%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function [interestingmatrix, I, notsointerestingmatrix, i] = determinantanalysis(N,s) 
+Matrices = zeros(5,5*N);
+close all
+dets = zeros(1,N);
+Dets = zeros(1,N);
+
+for j = 1:N
+    r=randi([-s s],1,10);
+    [M, m, ~, S] = expskew5(r,0);
+    dets(j)=abs(1-det(m));
+    Dets(j)=abs(1-det(M));
+    Matrices(:,5*j-4:5*j) = S;
+end
+[~, I] = max(abs(dets-Dets)); I=I(1);
+[~, i] = min(abs(dets-Dets)); i=i(1);
+interestingmatrix = Matrices(:,5*I-4:5*I);
+notsointerestingmatrix = Matrices(:,5*i-4:5*i);
+plot(1:N, dets, '--ob',1:N, Dets,'-*r');
+xlabel('Generated Matrices S')
+ylabel('$|1-\det(S)|$','Interpreter','latex')
+legend('Matlab''s expm','Closed Formula')
+
+
